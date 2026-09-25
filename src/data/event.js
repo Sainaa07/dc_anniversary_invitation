@@ -123,7 +123,7 @@ export const DRESS_CODE = {
 
 export const SCHEDULE = [
   {
-    time: "07:00",
+    time: "06:30",
     location: "Оффис",
     title: "Тэрэлж рүү хөдөлнө",
     description: "Оффисын гаднаас цугларч, Тэрэлж рүү хамт олноороо хөдөлнө.",

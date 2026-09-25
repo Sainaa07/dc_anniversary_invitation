@@ -32,9 +32,9 @@ export const EVENT = {
   company: "Datacare",
   companyFull: "Datacare ХХК",
   milestone: "15 жилийн ой",
-  celebration: "15 жилийн ойн баяр",
+  celebration: "15th anniversary",
   years: 15,
-  tagline: "15 жилийн ойн баяр",
+  tagline: "15th anniversary",
   kicker: "Datacare ХХК · 15 жилийн ой",
   invitation:
     "Өнгөрсөн 15 жилийн турш хамтдаа бүтээсэн амжилт, дурсамжаа нэгэн өдөр тэмдэглэж, ирээдүйн шинэ аялалдаа хамтдаа алхахыг урьж байна",
@@ -108,10 +108,10 @@ export const GUESTS = {
 };
 
 export const DRESS_CODE = {
-  title: "Хувцаслалт",
+  title: "Dress code",
   headline: "Casual Cocktail",
   description:
-    "Тав тухтай ч гоёмсог. Эрэгтэйчүүд цэвэрхэн цамц эсвэл нимгэн костюм; эмэгтэйчүүд коктейль даашинз эсвэл гоёмсог энгийн хувцас. Тэрэлжийн байгальд зохицсон, өдрөөс орой хүртэл тохирох хувцсаа сонгоорой.",
+    "Тав тухтай ч гоёмсог. Эрэгтэйчүүд цэвэрхэн цамц эсвэл нимгэн костюм; эмэгтэйчүүд коктейль даашинз. Тэрэлжийн байгальд зохицсон, өдрөөс орой хүртэл тохирох хувцсаа сонгоорой.",
   palette: [
     { name: "", hex: "#0A1128" },
     { name: "", hex: "#D4AF37" },
@@ -154,13 +154,13 @@ export const SCHEDULE = [
     time: "15:30–16:30",
     location: "Glory resort",
     title: "Арга хэмжээний бэлтгэл",
-    description: "Glory resortод байрлаж, оройн арга хэмжээндээ бэлтгэнэ.",
+    description: "Glory resort-д байрлаж, оройн арга хэмжээндээ бэлтгэнэ.",
     icon: Sparkles,
   },
   {
     time: "16:30–21:00",
     location: "Glory resort",
-    title: "Нээлт",
+    title: "Хүндэтгэлийн үйл ажиллагаа",
     description: "Арга хэмжээгээ нээж, хүндэтгэлийн үг хэлнэ.",
     icon: Mic2,
   },

@@ -53,9 +53,7 @@ export default function EventDetails() {
         {/* Огноо & Цаг */}
         <GlassCard>
           <IconBadge icon={CalendarDays} />
-          <h3 className="font-display text-xl font-bold text-white">
-            Огноо &amp; Цаг
-          </h3>
+          <h3 className="font-display text-xl font-bold text-white">Огноо</h3>
           <p className="mt-3 text-lg font-semibold text-gold-200">
             {EVENT.dateLabel}
           </p>
@@ -73,7 +71,7 @@ export default function EventDetails() {
           <p className="mt-3 text-lg font-semibold text-gold-200">
             {EVENT.venue.name}
           </p>
-          <p className="mt-1 text-sm leading-relaxed text-silver-300">
+          <p className="mt-4 text-sm leading-relaxed text-silver-400">
             {EVENT.venue.line1}
             <br />
             {EVENT.venue.line2}

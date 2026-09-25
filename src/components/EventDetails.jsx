@@ -1,22 +1,28 @@
-import { motion } from 'framer-motion'
-import { CalendarDays, MapPin, Shirt, ExternalLink, Navigation } from 'lucide-react'
-import SectionHeading from './SectionHeading'
-import { stagger, item } from './ui/Reveal'
-import { EVENT, DRESS_CODE } from '../data/event'
+import { motion } from "framer-motion";
+import {
+  CalendarDays,
+  MapPin,
+  Shirt,
+  ExternalLink,
+  Navigation,
+} from "lucide-react";
+import SectionHeading from "./SectionHeading";
+import { stagger, item } from "./ui/Reveal";
+import { EVENT, DRESS_CODE } from "../data/event";
 
-function GlassCard({ children, className = '' }) {
+function GlassCard({ children, className = "" }) {
   return (
     <motion.div
       variants={item}
       whileHover={{ y: -8 }}
-      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+      transition={{ type: "spring", stiffness: 260, damping: 20 }}
       className={`group relative overflow-hidden rounded-3xl glass-strong p-7 shadow-glass transition-shadow duration-300 hover:shadow-card-hover ${className}`}
     >
       {/* top gold hairline that appears on hover */}
       <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-400/70 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       {children}
     </motion.div>
-  )
+  );
 }
 
 function IconBadge({ icon: Icon }) {
@@ -24,17 +30,17 @@ function IconBadge({ icon: Icon }) {
     <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-gold-400/30 bg-gold-400/10 text-gold-300 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
       <Icon className="h-6 w-6" />
     </div>
-  )
+  );
 }
 
 export default function EventDetails() {
   return (
     <section id="details" className="relative px-5 py-24 sm:py-32">
       <SectionHeading
-        eyebrow="Арга хэмжээний мэдээлэл"
-        title="Мэдэх ёстой"
-        highlight="бүхэн"
-        subtitle="Хуанлидаа тэмдэглээд, замаа төлөвлөөд, гоёмсог хувцаслаарай. Тухайн өдрийн талаарх бүх мэдээлэл энд байна."
+        // eyebrow="Арга хэмжээний мэдээлэл"
+        title="Арга хэмжээний"
+        highlight="мэдээлэл"
+        subtitle="Хуанлидаа тэмдэглээд, ажлаа төлөвлөөд, гоёмсог хувцаслаарай. Тухайн өдрийн талаарх бүх мэдээлэл энд байна."
       />
 
       <motion.div
@@ -47,14 +53,16 @@ export default function EventDetails() {
         {/* Огноо & Цаг */}
         <GlassCard>
           <IconBadge icon={CalendarDays} />
-          <h3 className="font-display text-xl font-bold text-white">Огноо &amp; Цаг</h3>
+          <h3 className="font-display text-xl font-bold text-white">
+            Огноо &amp; Цаг
+          </h3>
           <p className="mt-3 text-lg font-semibold text-gold-200">
             {EVENT.dateLabel}
           </p>
-          <p className="mt-1 text-silver-300">{EVENT.timeLabel}</p>
+          {/* <p className="mt-1 text-silver-300">{EVENT.timeLabel}</p> */}
           <p className="mt-4 text-sm leading-relaxed text-silver-400">
-            Өглөө эрт цугларч, Тэрэлж рүү хамтдаа хөдөлнө. Өдрийн аялал оройн
-            баяраар өндөрлөнө.
+            Өглөө эрт цугларч, Тэрэлж рүү хамтдаа хөдөлнө. Аялал оройн баяраар
+            өндөрлөнө.
           </p>
         </GlassCard>
 
@@ -69,8 +77,8 @@ export default function EventDetails() {
             {EVENT.venue.line1}
             <br />
             {EVENT.venue.line2}
-            <br />
-            {EVENT.venue.city}
+            {/* <br />
+            {EVENT.venue.city} */}
           </p>
           <a
             href={EVENT.venue.mapsUrl}
@@ -111,5 +119,5 @@ export default function EventDetails() {
         </GlassCard>
       </motion.div>
     </section>
-  )
+  );
 }

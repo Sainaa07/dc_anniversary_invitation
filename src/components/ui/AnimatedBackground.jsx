@@ -1,13 +1,30 @@
-import { useMemo } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 /**
  * Ambient animated backdrop: drifting gradient orbs, a faint tech grid,
  * and slow-floating "data" particles. Purely decorative (aria-hidden).
+ *
+ * Perf: orbs are pre-faded radial gradients (no filter: blur) and all
+ * motion is compositor-friendly CSS transform/opacity keyframes — no
+ * per-frame JS. Everything pauses while the backdrop is offscreen.
  */
 export default function AnimatedBackground({ dense = false }) {
+  const ref = useRef(null)
+  const [paused, setPaused] = useState(false)
+
+  useEffect(() => {
+    const node = ref.current
+    if (!node || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(
+      ([entry]) => setPaused(!entry.isIntersecting),
+      { rootMargin: '120px' }
+    )
+    io.observe(node)
+    return () => io.disconnect()
+  }, [])
+
   const particles = useMemo(() => {
-    const count = dense ? 34 : 20
+    const count = dense ? 26 : 16
     // Deterministic pseudo-random so layout is stable between renders.
     return Array.from({ length: count }, (_, i) => {
       const r = (n) => ((Math.sin(i * 999.13 + n) + 1) / 2)
@@ -23,7 +40,13 @@ export default function AnimatedBackground({ dense = false }) {
   }, [dense])
 
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div
+      ref={ref}
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 overflow-hidden ${
+        paused ? 'anim-paused' : ''
+      }`}
+    >
       {/* Base radial wash */}
       <div className="absolute inset-0 bg-navy-radial" />
 
@@ -33,28 +56,37 @@ export default function AnimatedBackground({ dense = false }) {
         style={{ backgroundSize: '54px 54px' }}
       />
 
-      {/* Drifting orbs */}
-      <motion.div
-        className="absolute -top-40 -left-24 h-[38rem] w-[38rem] rounded-full bg-tech-blue/25 blur-[120px]"
-        animate={{ x: [0, 60, -20, 0], y: [0, 40, -30, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+      {/* Drifting orbs — soft radial gradients stand in for blurred discs */}
+      <div
+        className="absolute -top-40 -left-24 h-[38rem] w-[38rem] rounded-full"
+        style={{
+          background:
+            'radial-gradient(circle closest-side, rgba(37,99,235,0.28), transparent 72%)',
+          animation: 'orb-drift-a 22s ease-in-out infinite',
+        }}
       />
-      <motion.div
-        className="absolute top-1/3 -right-32 h-[34rem] w-[34rem] rounded-full bg-gold-400/20 blur-[130px]"
-        animate={{ x: [0, -50, 30, 0], y: [0, -40, 20, 0] }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className="absolute top-1/3 -right-32 h-[34rem] w-[34rem] rounded-full"
+        style={{
+          background:
+            'radial-gradient(circle closest-side, rgba(212,175,55,0.22), transparent 72%)',
+          animation: 'orb-drift-b 26s ease-in-out infinite',
+        }}
       />
-      <motion.div
-        className="absolute -bottom-40 left-1/4 h-[30rem] w-[30rem] rounded-full bg-tech-cyan/15 blur-[120px]"
-        animate={{ x: [0, 40, -30, 0], y: [0, -30, 30, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
+      <div
+        className="absolute -bottom-40 left-1/4 h-[30rem] w-[30rem] rounded-full"
+        style={{
+          background:
+            'radial-gradient(circle closest-side, rgba(34,211,238,0.17), transparent 72%)',
+          animation: 'orb-drift-c 30s ease-in-out infinite',
+        }}
       />
 
-      {/* Floating particles */}
+      {/* Floating particles — every second one hidden on small screens */}
       {particles.map((p, i) => (
-        <motion.span
+        <span
           key={i}
-          className="absolute rounded-full"
+          className={`absolute rounded-full ${i % 2 ? 'hidden sm:block' : ''}`}
           style={{
             left: `${p.left}%`,
             top: `${p.top}%`,
@@ -66,13 +98,8 @@ export default function AnimatedBackground({ dense = false }) {
             boxShadow: p.gold
               ? '0 0 8px rgba(212,175,55,0.8)'
               : '0 0 8px rgba(56,189,248,0.8)',
-          }}
-          animate={{ y: [0, -26, 0], opacity: [0.2, 0.9, 0.2] }}
-          transition={{
-            duration: p.duration,
-            delay: p.delay,
-            repeat: Infinity,
-            ease: 'easeInOut',
+            opacity: 0.2,
+            animation: `particle-float ${p.duration}s ease-in-out ${-p.delay}s infinite`,
           }}
         />
       ))}

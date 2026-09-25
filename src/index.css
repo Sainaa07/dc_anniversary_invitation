@@ -37,9 +37,11 @@
 }
 
 @layer components {
-  /* Glassmorphism surface */
+  /* Glassmorphism surface — backdrop-filter is expensive on mobile GPUs,
+     so the blur only kicks in from sm: up; small screens get a slightly
+     more opaque fill instead. */
   .glass {
-    @apply bg-white/[0.04] backdrop-blur-xl border border-white/10;
+    @apply bg-white/[0.06] border border-white/10 sm:bg-white/[0.04] sm:backdrop-blur-xl;
   }
 
   .glass-strong {
@@ -48,7 +50,7 @@
       rgba(255, 255, 255, 0.09),
       rgba(255, 255, 255, 0.02)
     );
-    @apply backdrop-blur-2xl border border-white/10;
+    @apply border border-white/10 sm:backdrop-blur-2xl;
   }
 
   /* Gradient text helpers */
@@ -72,7 +74,8 @@
     );
   }
 
-  /* Shimmering sheen used across gold surfaces */
+  /* Shimmering sheen used across gold surfaces.
+     Animates transform (compositor) instead of background-position (paint). */
   .sheen {
     position: relative;
     overflow: hidden;
@@ -80,17 +83,79 @@
   .sheen::after {
     content: '';
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    left: -60%;
+    width: 60%;
     background: linear-gradient(
       110deg,
-      transparent 20%,
-      rgba(255, 255, 255, 0.5) 48%,
-      transparent 76%
+      transparent 10%,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 90%
     );
-    background-size: 220% 100%;
-    animation: shimmer 4.5s linear infinite;
+    animation: sheen-sweep 4.5s linear infinite;
     pointer-events: none;
   }
+}
+
+@keyframes sheen-sweep {
+  to {
+    transform: translateX(280%);
+  }
+}
+
+/* AnimatedBackground: compositor-only keyframes (transform/opacity) */
+@keyframes orb-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(60px, 40px, 0);
+  }
+  66% {
+    transform: translate3d(-20px, -30px, 0);
+  }
+}
+@keyframes orb-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(-50px, -40px, 0);
+  }
+  66% {
+    transform: translate3d(30px, 20px, 0);
+  }
+}
+@keyframes orb-drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(40px, -30px, 0);
+  }
+  66% {
+    transform: translate3d(-30px, 30px, 0);
+  }
+}
+@keyframes particle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-26px);
+    opacity: 0.9;
+  }
+}
+
+/* Freeze decorative animations while their section is offscreen */
+.anim-paused * {
+  animation-play-state: paused !important;
 }
 
 @layer utilities {

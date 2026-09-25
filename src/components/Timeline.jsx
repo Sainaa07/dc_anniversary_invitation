@@ -1,11 +1,11 @@
-import { useRef } from 'react'
-import { motion, useScroll, useSpring } from 'framer-motion'
-import { MapPin } from 'lucide-react'
-import SectionHeading from './SectionHeading'
-import { SCHEDULE } from '../data/event'
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { MapPin } from "lucide-react";
+import SectionHeading from "./SectionHeading";
+import { SCHEDULE } from "../data/event";
 
 function ScheduleCard({ ev, isLeft }) {
-  const Icon = ev.icon
+  const Icon = ev.icon;
   return (
     <motion.div
       initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
@@ -41,42 +41,42 @@ function ScheduleCard({ ev, isLeft }) {
         </div>
       </div>
     </motion.div>
-  )
+  );
 }
 
 export default function Timeline() {
-  const ref = useRef(null)
+  const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start 0.6', 'end 0.5'],
-  })
+    offset: ["start 0.6", "end 0.5"],
+  });
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
     restDelta: 0.001,
-  })
+  });
 
   return (
     <section id="schedule" className="relative px-5 py-24 sm:py-32">
       <SectionHeading
-        eyebrow="Хөтөлбөр"
+        // eyebrow="Хөтөлбөр"
         title="Өдрийн"
         highlight="хөтөлбөр"
-        subtitle="Өглөөний аяллаас эхлээд оройн баяр хүртэл — өдөр хэрхэн өрнөхийг эндээс үзээрэй."
+        // subtitle="Өглөөний аяллаас эхлээд оройн баяр хүртэл — өдөр хэрхэн өрнөхийг эндээс үзээрэй."
       />
 
       <div ref={ref} className="relative mx-auto mt-16 max-w-5xl">
         {/* Rail: base + animated gold progress */}
         <div className="absolute left-5 top-0 h-full w-px bg-white/10 md:left-1/2 md:-translate-x-1/2">
           <motion.div
-            style={{ scaleY, transformOrigin: 'top' }}
+            style={{ scaleY, transformOrigin: "top" }}
             className="h-full w-full bg-gradient-to-b from-gold-200 via-gold-400 to-gold-500 shadow-[0_0_14px_rgba(212,175,55,0.6)]"
           />
         </div>
 
         <div className="space-y-10 md:space-y-4">
           {SCHEDULE.map((ev, i) => {
-            const isLeft = i % 2 === 0
+            const isLeft = i % 2 === 0;
             return (
               <div
                 key={ev.time}
@@ -93,18 +93,16 @@ export default function Timeline() {
                 {/* Card — placed on the correct side for desktop */}
                 <div
                   className={`pl-14 md:pl-0 ${
-                    isLeft
-                      ? 'md:col-start-1 md:pr-4'
-                      : 'md:col-start-2 md:pl-4'
+                    isLeft ? "md:col-start-1 md:pr-4" : "md:col-start-2 md:pl-4"
                   }`}
                 >
                   <ScheduleCard ev={ev} isLeft={isLeft} />
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }

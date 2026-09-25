@@ -1,17 +1,17 @@
-import { motion } from 'framer-motion'
-import { Users, Volleyball } from 'lucide-react'
-import SectionHeading from './SectionHeading'
-import { stagger, item } from './ui/Reveal'
-import { TEAMS } from '../data/event'
+import { motion } from "framer-motion";
+import { Users, Volleyball } from "lucide-react";
+import SectionHeading from "./SectionHeading";
+import { stagger, item } from "./ui/Reveal";
+import { TEAMS } from "../data/event";
 
 // ── Decorative bouncing footballs ────────────────────────────
 const BALLS = [
-  { left: '5%', size: 34, delay: 0, dur: 1.7 },
-  { left: '24%', size: 22, delay: 0.4, dur: 1.45 },
-  { left: '47%', size: 27, delay: 0.15, dur: 1.55 },
-  { left: '70%', size: 20, delay: 0.55, dur: 1.4 },
-  { left: '88%', size: 36, delay: 0.28, dur: 1.7 },
-]
+  { left: "5%", size: 34, delay: 0, dur: 1.7 },
+  { left: "24%", size: 22, delay: 0.4, dur: 1.45 },
+  { left: "47%", size: 27, delay: 0.15, dur: 1.55 },
+  { left: "70%", size: 20, delay: 0.55, dur: 1.4 },
+  { left: "88%", size: 36, delay: 0.28, dur: 1.7 },
+];
 
 const ballVariants = {
   hidden: { y: -240, opacity: 0, rotate: 0 },
@@ -25,20 +25,20 @@ const ballVariants = {
         delay,
         times: [0, 0.3, 0.48, 0.64, 0.76, 0.86, 0.94, 1],
         ease: [
-          'easeIn',
-          'easeOut',
-          'easeIn',
-          'easeOut',
-          'easeIn',
-          'easeOut',
-          'easeIn',
+          "easeIn",
+          "easeOut",
+          "easeIn",
+          "easeOut",
+          "easeIn",
+          "easeOut",
+          "easeIn",
         ],
       },
       opacity: { duration: 0.3, delay },
-      rotate: { duration: dur, delay, ease: 'easeOut' },
+      rotate: { duration: dur, delay, ease: "easeOut" },
     },
   }),
-}
+};
 
 function BouncingBalls() {
   return (
@@ -61,21 +61,21 @@ function BouncingBalls() {
         </motion.span>
       ))}
     </motion.div>
-  )
+  );
 }
 
 function TeamCard({ team, index }) {
-  const Icon = team.icon
-  const hasRoster = team.members && team.members.length > 0
-  const jersey = String(index + 1).padStart(2, '0')
+  const Icon = team.icon;
+  const hasRoster = team.members && team.members.length > 0;
+  const jersey = String(index + 1).padStart(2, "0");
 
   return (
     <motion.div
       variants={item}
       whileHover={{ y: -8 }}
-      transition={{ type: 'spring', stiffness: 250, damping: 20 }}
-      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 shadow-glass backdrop-blur-xl transition-shadow duration-300 hover:shadow-card-hover sm:p-7"
-      style={{ '--accent': team.accent }}
+      transition={{ type: "spring", stiffness: 250, damping: 20 }}
+      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 shadow-glass transition-shadow duration-300 hover:shadow-card-hover sm:p-7 sm:backdrop-blur-xl"
+      style={{ "--accent": team.accent }}
     >
       {/* accent top bar */}
       <span
@@ -147,7 +147,7 @@ function TeamCard({ team, index }) {
                 className="w-6 shrink-0 text-right font-display text-xs font-bold tabular-nums"
                 style={{ color: team.accent }}
               >
-                {String(i + 1).padStart(2, '0')}
+                {String(i + 1).padStart(2, "0")}
               </span>
               <span className="truncate">{m}</span>
             </li>
@@ -159,20 +159,26 @@ function TeamCard({ team, index }) {
         </p>
       )}
     </motion.div>
-  )
+  );
 }
 
 export default function Teams() {
   return (
     <section id="teams" className="relative px-5 py-24 sm:py-32">
       {/* section accent */}
-      <div className="pointer-events-none absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-tech-blue/10 blur-[120px]" />
+      <div
+        className="pointer-events-none absolute left-1/2 top-24 h-96 w-96 -translate-x-1/2 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle closest-side, rgba(37,99,235,0.12), transparent 72%)",
+        }}
+      />
 
       <SectionHeading
         eyebrow="Ойн тэмцээн"
-        title="Хөл бөмбөгийн"
-        highlight="4 баг"
-        subtitle="Дөрвөн баг, нэг цом. 15 жилийн ойн хөл бөмбөгийн тэмцээн бүх хамт олныг нэгтгэнэ — дуртай багаа дэмжээрэй!"
+        title="Хөл бөмбөг"
+        // highlight="баг"
+        subtitle="Дөрвөн баг, нэг цом."
       />
 
       <BouncingBalls />
@@ -189,5 +195,5 @@ export default function Teams() {
         ))}
       </motion.div>
     </section>
-  )
+  );
 }

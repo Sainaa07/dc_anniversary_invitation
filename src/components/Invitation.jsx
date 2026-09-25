@@ -233,8 +233,10 @@ export default function Invitation({ open, setOpen }) {
                     ease: isOpen ? [0.5, 0, 0.2, 1] : [0.34, 0.02, 0.26, 1],
                   }}
                 >
+                  {/* rounded-t-xl — таг хаалттай үед дугтуйн дээд булангууд
+                      доод давхаргуудтайгаа адил дугуй харагдана */}
                   <div
-                    className="h-full w-full border-b border-gold-400/30 bg-gradient-to-b from-navy-600 to-navy-700"
+                    className="h-full w-full rounded-t-xl border-b border-gold-400/30 bg-gradient-to-b from-navy-600 to-navy-700"
                     style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)" }}
                   />
                 </motion.div>

@@ -175,7 +175,7 @@ export default function Teams() {
       />
 
       <SectionHeading
-        eyebrow="Ойн тэмцээн"
+        eyebrow="Тэмцээн"
         title="Хөл бөмбөг"
         // highlight="баг"
         subtitle="Дөрвөн баг, нэг цом."

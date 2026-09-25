@@ -48,7 +48,7 @@ export default function Hero({ onOpenInvitation }) {
           animate="show"
           className="text-balance font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl"
         >
-          <span className="text-gold-animated">{EVENT.company}</span>
+          <span className="text-gold-animated">{EVENT.company} LLC</span>
           <span className="mt-2 block text-white">{EVENT.tagline}</span>
         </motion.h1>
 

@@ -160,8 +160,8 @@ export const SCHEDULE = [
   {
     time: "16:30–21:00",
     location: "Glory resort",
-    title: "Хүндэтгэлийн үйл ажиллагаа",
-    description: "Арга хэмжээгээ нээж, хүндэтгэлийн үг хэлнэ.",
+    title: "Хүндэтгэлийн арга хэмжээ",
+    // description: "Арга хэмжээгээ нээж, хүндэтгэлийн үг хэлнэ.",
     icon: Mic2,
   },
 

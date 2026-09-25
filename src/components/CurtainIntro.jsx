@@ -155,7 +155,7 @@ export default function CurtainIntro({ onComplete }) {
         />
         <div className="h-px w-44 gold-rule" />
         <p className="font-display text-sm font-semibold uppercase tracking-[0.42em] text-gold-200 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
-          15 жилийн ой
+          15th anniversary
         </p>
       </motion.div>
 
